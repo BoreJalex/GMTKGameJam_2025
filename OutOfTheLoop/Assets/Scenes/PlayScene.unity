@@ -311,7 +311,7 @@ MonoBehaviour:
   gridColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.3}
   occupiedColor: {r: 1, g: 0, b: 0, a: 0.3}
   hoverColor: {r: 0, g: 1, b: 0, a: 0.5}
-  placementPreview: {fileID: 0}
+  placementPreview: {fileID: 7810700473659526353, guid: 21996596710d6ef44ad2668a9b6c0bdc, type: 3}
   previewRenderer: {fileID: 0}
 --- !u!61 &1298291265
 BoxCollider2D:
