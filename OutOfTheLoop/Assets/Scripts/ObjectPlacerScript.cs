@@ -87,17 +87,4 @@ public class ObjectPlacerScript : MonoBehaviour
         Vector2 mouseWorldPos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         gridSystem.RemoveObject(mouseWorldPos);
     }
-
-    void OnGUI()
-    {
-        if (showCurrentSelection && placeableObjects.Length > 0)
-        {
-            GUI.Label(new Rect(10, 10, 300, 30),
-                $"Current Object: {placeableObjects[currentObjectIndex].name}");
-            GUI.Label(new Rect(10, 40, 300, 30),
-                "Left Click: Place | Right Click: Remove");
-            GUI.Label(new Rect(10, 70, 300, 30),
-                "Number Keys or Scroll: Select Object");
-        }
-    }
 }

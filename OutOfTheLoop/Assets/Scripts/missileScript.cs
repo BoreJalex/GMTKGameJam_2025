@@ -10,6 +10,7 @@ public class missileScript : MonoBehaviour
 
     // Variables
     [SerializeField] private float speed;
+    private Vector2 startPos;
 
     // Bools
     public bool alive = false;
@@ -19,6 +20,7 @@ public class missileScript : MonoBehaviour
         // Getting/Setting
         rb = GetComponent<Rigidbody2D>();
         explosion = transform.GetChild(1).gameObject.GetComponent<ParticleSystem>();
+        startPos = transform.position;
 
     }
     private void FixedUpdate()
@@ -27,6 +29,13 @@ public class missileScript : MonoBehaviour
         {
             alive = true;
 
+        }
+        if (Input.GetKey(KeyCode.R))
+        {
+            //reset the spaceship position
+            transform.position = startPos;
+            alive = false;
+            rb.velocity = new Vector2(0,0);
         }
         // Movement
         if (gameObject != null && alive)
