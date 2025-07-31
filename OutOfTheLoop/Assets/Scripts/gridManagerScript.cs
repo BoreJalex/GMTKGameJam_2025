@@ -26,7 +26,6 @@ public class gridManagerScript : MonoBehaviour
     [SerializeField] private Vector2 gridOrigin = Vector2.zero;
 
     [Header("Visual Settings")]
-    [SerializeField] private bool showGrid = true;
     [SerializeField] private Color gridColor = new Color(0.5f, 0.5f, 0.5f, 0.3f);
     [SerializeField] private Color occupiedColor = new Color(1f, 0f, 0f, 0.3f);
     [SerializeField] private Color hoverColor = new Color(0f, 1f, 0f, 0.5f);
@@ -34,6 +33,8 @@ public class gridManagerScript : MonoBehaviour
     [Header("Placement Settings")]
     [SerializeField] private GameObject placementPreview;
     [SerializeField] private SpriteRenderer previewRenderer;
+    private ObjectPlacerScript objectPlacerScript;
+
 
     private GridCell[,] grid;
     private GridCell currentHoveredCell;
@@ -56,6 +57,7 @@ public class gridManagerScript : MonoBehaviour
     void Start()
     {
         mainCamera = Camera.main;
+        objectPlacerScript = GameObject.FindGameObjectWithTag("ObjectPlacer").GetComponent<ObjectPlacerScript>();
         InitializeGrid();
 
         // Create a collider for mouse detection if needed
@@ -144,30 +146,38 @@ public class gridManagerScript : MonoBehaviour
         return false;
     }
 
-    public void ClearGrid()
-    {
-        for (int x = 0; x < gridWidth; x++)
-        {
-            for (int y = 0; y < gridHeight; y++)
-            {
-                if (grid[x, y].isOccupied && grid[x, y].occupyingObject != null)
-                {
-                    Destroy(grid[x, y].occupyingObject);
-                }
-                grid[x, y].isOccupied = false;
-                grid[x, y].occupyingObject = null;
-            }
-        }
-    }
+
 
     void Update()
     {
         HandleHoverPreview();
     }
 
+    // Add this variable to track the last preview prefab
+    private GameObject lastPlacementPreview;
+
     void HandleHoverPreview()
     {
+        // Sets preview to be the active item being placed
+        placementPreview = objectPlacerScript.placeableObjects[objectPlacerScript.currentObjectIndex];
+        Debug.Log(objectPlacerScript.placeableObjects[objectPlacerScript.currentObjectIndex]);
+
         if (placementPreview == null) return;
+
+        // Check if the preview object has changed
+        if (lastPlacementPreview != placementPreview)
+        {
+            // Destroy the old preview
+            if (currentPreview != null)
+            {
+                Destroy(currentPreview);
+                currentPreview = null;
+                previewRenderer = null;
+            }
+
+            // Update the reference
+            lastPlacementPreview = placementPreview;
+        }
 
         Vector2 mouseWorldPos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         GridCell cell = GetNearestCell(mouseWorldPos);
@@ -182,10 +192,13 @@ public class gridManagerScript : MonoBehaviour
                 currentPreview.SetActive(false);
 
                 // Make preview semi-transparent
-                if (previewRenderer == null && currentPreview.TryGetComponent<SpriteRenderer>(out var sr))
+                if (currentPreview.TryGetComponent<SpriteRenderer>(out var sr))
                 {
                     previewRenderer = sr;
                 }
+
+                // Disable any scripts and physics on the preview
+                DisablePreviewComponents(currentPreview);
             }
 
             if (!cell.isOccupied)
@@ -216,68 +229,36 @@ public class gridManagerScript : MonoBehaviour
         }
     }
 
-    public List<GameObject> GetAllPlacedObjects()
+    // Helper method to disable components on the preview
+    void DisablePreviewComponents(GameObject preview)
     {
-        List<GameObject> objects = new List<GameObject>();
-
-        for (int x = 0; x < gridWidth; x++)
+        // Disable all MonoBehaviour scripts except SpriteRenderer
+        MonoBehaviour[] scripts = preview.GetComponents<MonoBehaviour>();
+        foreach (var script in scripts)
         {
-            for (int y = 0; y < gridHeight; y++)
-            {
-                if (grid[x, y].isOccupied && grid[x, y].occupyingObject != null)
-                {
-                    objects.Add(grid[x, y].occupyingObject);
-                }
-            }
+            script.enabled = false;
         }
 
-        return objects;
+        // Disable physics
+        Rigidbody2D rb = preview.GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.simulated = false;
+        }
+
+        // Disable colliders
+        Collider2D[] colliders = preview.GetComponents<Collider2D>();
+        foreach (var col in colliders)
+        {
+            col.enabled = false;
+        }
+
+        // Also disable components in children
+        foreach (Transform child in preview.transform)
+        {
+            DisablePreviewComponents(child.gameObject);
+        }
     }
 
-    void OnDrawGizmos()
-    {
-        if (!showGrid) return;
 
-        // Draw grid lines
-        Gizmos.color = gridColor;
-
-        // Vertical lines
-        for (int x = 0; x <= gridWidth; x++)
-        {
-            Vector3 start = new Vector3(x * cellSize + gridOrigin.x, gridOrigin.y, 0);
-            Vector3 end = new Vector3(x * cellSize + gridOrigin.x, gridHeight * cellSize + gridOrigin.y, 0);
-            Gizmos.DrawLine(start, end);
-        }
-
-        // Horizontal lines
-        for (int y = 0; y <= gridHeight; y++)
-        {
-            Vector3 start = new Vector3(gridOrigin.x, y * cellSize + gridOrigin.y, 0);
-            Vector3 end = new Vector3(gridWidth * cellSize + gridOrigin.x, y * cellSize + gridOrigin.y, 0);
-            Gizmos.DrawLine(start, end);
-        }
-
-        // Draw cell states
-        if (grid != null)
-        {
-            for (int x = 0; x < gridWidth; x++)
-            {
-                for (int y = 0; y < gridHeight; y++)
-                {
-                    Vector3 cellCenter = grid[x, y].worldPosition;
-
-                    if (grid[x, y].isOccupied)
-                    {
-                        Gizmos.color = occupiedColor;
-                        Gizmos.DrawWireCube(cellCenter, new Vector3(cellSize * 0.8f, cellSize * 0.8f, 0.1f));
-                    }
-                    else if (currentHoveredCell == grid[x, y])
-                    {
-                        Gizmos.color = hoverColor;
-                        Gizmos.DrawWireCube(cellCenter, new Vector3(cellSize * 0.9f, cellSize * 0.9f, 0.1f));
-                    }
-                }
-            }
-        }
-    }
 }

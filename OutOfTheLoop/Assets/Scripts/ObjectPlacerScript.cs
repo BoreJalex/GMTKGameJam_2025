@@ -5,8 +5,8 @@ using UnityEngine;
 public class ObjectPlacerScript : MonoBehaviour
 {
     [Header("Placement Objects")]
-    [SerializeField] private GameObject[] placeableObjects;
-    [SerializeField] private int currentObjectIndex = 0;
+    [SerializeField] public GameObject[] placeableObjects;
+    [SerializeField] public int currentObjectIndex = 0;
 
     [Header("References")]
     [SerializeField] private gridManagerScript gridSystem;

@@ -75,13 +75,7 @@ public class GridVisualizerScript : MonoBehaviour
             line.SetPosition(1, end);
 
             gridLines.Add(line);
-        }
-
-        // Create cell indicators if needed
-        if (showCellStates)
-        {
-            CreateCellIndicators();
-        }
+        }        
     }
 
     void ConfigureLineRenderer(LineRenderer line)
@@ -96,46 +90,8 @@ public class GridVisualizerScript : MonoBehaviour
         line.useWorldSpace = true;
     }
 
-    void CreateCellIndicators()
-    {
-        int width = gridSystem.GridWidth;
-        int height = gridSystem.GridHeight;
+  
 
-        for (int x = 0; x < width; x++)
-        {
-            for (int y = 0; y < height; y++)
-            {
-                CreateCellIndicator(x, y);
-            }
-        }
-    }
-
-    void CreateCellIndicator(int x, int y)
-    {
-        GameObject indicator;
-
-        if (cellIndicatorPrefab != null)
-        {
-            indicator = Instantiate(cellIndicatorPrefab, transform);
-        }
-        else
-        {
-            // Create default indicator
-            indicator = new GameObject($"Cell Indicator [{x},{y}]");
-            indicator.transform.parent = transform;
-
-            SpriteRenderer sr = indicator.AddComponent<SpriteRenderer>();
-            sr.sprite = CreateSquareSprite();
-            sr.color = new Color(1, 1, 1, 0);
-            sr.sortingOrder = sortingOrder + 1;
-        }
-
-        indicator.transform.position = gridSystem.GetWorldPosition(x, y);
-        indicator.transform.localScale = Vector3.one * gridSystem.CellSize * 0.9f;
-        indicator.SetActive(false);
-
-        cellIndicators[new Vector2Int(x, y)] = indicator;
-    }
 
     void Update()
     {
@@ -161,27 +117,6 @@ public class GridVisualizerScript : MonoBehaviour
         }
     }
 
-    Sprite CreateSquareSprite()
-    {
-        Texture2D tex = new Texture2D(1, 1);
-        tex.SetPixel(0, 0, Color.white);
-        tex.Apply();
-        return Sprite.Create(tex, new Rect(0, 0, 1, 1), new Vector2(0.5f, 0.5f), 1);
-    }
+  
 
-    public void ToggleGrid()
-    {
-        showGridInGame = !showGridInGame;
-        gridLinesContainer?.SetActive(showGridInGame);
-    }
-
-    public void SetGridColor(Color newColor)
-    {
-        gridLineColor = newColor;
-        foreach (var line in gridLines)
-        {
-            line.startColor = gridLineColor;
-            line.endColor = gridLineColor;
-        }
-    }
 }
