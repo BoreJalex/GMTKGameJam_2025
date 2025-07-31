@@ -52,9 +52,11 @@ public class repulserScript : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		// If player triggers, they're in range
-		if (collision.gameObject.CompareTag("Player"))
-		{
+        missileScript missileScript = collision.GetComponent<missileScript>();
+
+        // If player triggers, they're in range
+        if (collision.gameObject.CompareTag("Player") && missileScript.alive)
+        {
 			if (missile != collision.transform)
 				missile = collision.transform;
 

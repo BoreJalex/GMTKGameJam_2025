@@ -268,6 +268,7 @@ GameObject:
   - component: {fileID: 1298291263}
   - component: {fileID: 1298291264}
   - component: {fileID: 1298291265}
+  - component: {fileID: 1298291266}
   m_Layer: 6
   m_Name: GridManager
   m_TagString: Untagged
@@ -302,10 +303,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce0851a67479708488318af06a25a993, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridWidth: 37
+  gridWidth: 36
   gridHeight: 20
   cellSize: 1
-  gridOrigin: {x: -18.5, y: -10}
+  gridOrigin: {x: -18, y: -10}
   showGrid: 1
   gridColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.3}
   occupiedColor: {r: 1, g: 0, b: 0, a: 0.3}
@@ -336,8 +337,27 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 37, y: 20}
+  m_Size: {x: 36, y: 20}
   m_EdgeRadius: 0
+--- !u!114 &1298291266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1298291262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9046baba52b08e446bca7c972802fa61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showGridInGame: 1
+  gridLineColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+  lineWidth: 0.05
+  sortingOrder: 0
+  showCellStates: 1
+  occupiedCellColor: {r: 1, g: 0, b: 0, a: 0.3}
+  cellIndicatorPrefab: {fileID: 0}
 --- !u!1001 &4457965562938088149
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -345,6 +365,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4457965561457314663, guid: 69382031aa830154593cc4edf517a811, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4457965562921394264, guid: 69382031aa830154593cc4edf517a811, type: 3}
       propertyPath: m_Name
       value: Missile

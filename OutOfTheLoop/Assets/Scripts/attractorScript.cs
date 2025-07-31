@@ -8,8 +8,8 @@ public class attractorScript : MonoBehaviour
 	Transform missile;
 	Transform attractor;
 
-	// Variables
-	private float distance; // The distance of this attractor from the player
+    // Variables
+    private float distance; // The distance of this attractor from the player
 	private float strengthPercentage; // The percent of strength the satelite uses based on distance
 
 	[SerializeField] private float generalStrength; // The general strength of this attractor, which is multiplied by the strengthPercentage 
@@ -51,8 +51,10 @@ public class attractorScript : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		// If player triggers, they're in range
-		if (collision.gameObject.CompareTag("Player"))
+        missileScript missileScript = collision.GetComponent<missileScript>();
+
+        // If player triggers, they're in range
+        if (collision.gameObject.CompareTag("Player") && missileScript.alive)
 		{
 			if (missile != collision.transform)
 				missile = collision.transform;

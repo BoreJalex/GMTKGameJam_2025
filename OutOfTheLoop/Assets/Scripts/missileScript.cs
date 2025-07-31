@@ -12,19 +12,24 @@ public class missileScript : MonoBehaviour
     [SerializeField] private float speed;
 
     // Bools
-    private bool alive = true; 
-
+    public bool alive = false;
     // Start is called before the first frame update
     void Start()
     {
         // Getting/Setting
         rb = GetComponent<Rigidbody2D>();
         explosion = transform.GetChild(1).gameObject.GetComponent<ParticleSystem>();
+
     }
-	private void FixedUpdate()
+    private void FixedUpdate()
 	{
-		// Movement
-        if(gameObject != null && alive)
+        if(Input.GetKey(KeyCode.Space))
+        {
+            alive = true;
+
+        }
+        // Movement
+        if (gameObject != null && alive)
 		    rb.velocity = speed * transform.up;
 	}
 
@@ -36,4 +41,5 @@ public class missileScript : MonoBehaviour
             alive = false;
         }
 	}
+
 }
