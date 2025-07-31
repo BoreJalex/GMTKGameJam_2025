@@ -30,7 +30,7 @@ public class missileScript : MonoBehaviour
 
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
-        if (alive)
+        if (alive && !collision.gameObject.CompareTag("LevelEnd"))
         {
             explosion.Play();
             alive = false;
