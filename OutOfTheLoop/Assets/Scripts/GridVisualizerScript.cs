@@ -10,11 +10,6 @@ public class GridVisualizerScript : MonoBehaviour
     [SerializeField] private float lineWidth = 0.05f;
     [SerializeField] private int sortingOrder = -10;
 
-    [Header("Cell Indicators")]
-    [SerializeField] private bool showCellStates = true;
-    [SerializeField] private Color occupiedCellColor = new Color(1f, 0f, 0f, 0.3f);
-    [SerializeField] private GameObject cellIndicatorPrefab; // Optional: custom cell indicator
-
     private gridManagerScript gridSystem;
     private GameObject gridLinesContainer;
     private List<LineRenderer> gridLines = new List<LineRenderer>();
@@ -95,7 +90,6 @@ public class GridVisualizerScript : MonoBehaviour
 
     void Update()
     {
-        if (!showCellStates) return;
 
         // Update cell indicators based on occupancy
         for (int x = 0; x < gridSystem.GridWidth; x++)
@@ -107,11 +101,6 @@ public class GridVisualizerScript : MonoBehaviour
                 {
                     bool isOccupied = gridSystem.IsCellOccupied(x, y);
                     cellIndicators[key].SetActive(isOccupied);
-
-                    if (isOccupied && cellIndicators[key].TryGetComponent<SpriteRenderer>(out var sr))
-                    {
-                        sr.color = occupiedCellColor;
-                    }
                 }
             }
         }

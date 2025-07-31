@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class missileScript : MonoBehaviour
@@ -11,6 +12,7 @@ public class missileScript : MonoBehaviour
     // Variables
     [SerializeField] private float speed;
     private Vector2 startPos;
+    private quaternion startRot;
 
     // Bools
     public bool alive = false;
@@ -21,6 +23,7 @@ public class missileScript : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         explosion = transform.GetChild(1).gameObject.GetComponent<ParticleSystem>();
         startPos = transform.position;
+        startRot = transform.rotation;
 
     }
     private void FixedUpdate()
@@ -34,6 +37,7 @@ public class missileScript : MonoBehaviour
         {
             //reset the spaceship position
             transform.position = startPos;
+            transform.rotation = startRot;
             alive = false;
             rb.velocity = new Vector2(0,0);
         }

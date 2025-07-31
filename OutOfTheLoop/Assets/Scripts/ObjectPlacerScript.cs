@@ -11,9 +11,6 @@ public class ObjectPlacerScript : MonoBehaviour
     [Header("References")]
     [SerializeField] private gridManagerScript gridSystem;
 
-    [Header("UI")]
-    [SerializeField] private bool showCurrentSelection = true;
-
     private Camera mainCamera;
 
     void Start()
