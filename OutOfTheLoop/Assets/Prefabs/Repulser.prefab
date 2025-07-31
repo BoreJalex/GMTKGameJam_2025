@@ -175,7 +175,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   generalStrength: 1
-  missileRotationSpeed: 17.5
+  missileRotationSpeed: 18.5
 --- !u!1 &4651474150875993263
 GameObject:
   m_ObjectHideFlags: 0
