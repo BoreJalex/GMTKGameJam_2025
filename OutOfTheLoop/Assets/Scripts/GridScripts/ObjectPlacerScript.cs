@@ -6,7 +6,7 @@ public class ObjectPlacerScript : MonoBehaviour
 {
     [Header("Placement Objects")]
     [SerializeField] public GameObject[] placeableObjects;
-    [SerializeField] public int currentObjectIndex = 0;
+    [SerializeField] public int currentObjectIndex = -1;
 
     [Header("References")]
     [SerializeField] private gridManagerScript gridSystem;
@@ -36,7 +36,12 @@ public class ObjectPlacerScript : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Alpha1 + i))
             {
-                currentObjectIndex = i;
+                if (currentObjectIndex == i)
+                {
+                    currentObjectIndex = -1; // Deselect if already selected
+                }
+                else
+                    currentObjectIndex = i;
                 Debug.Log($"Selected object: {placeableObjects[i].name}");
             }
         }
@@ -53,11 +58,11 @@ public class ObjectPlacerScript : MonoBehaviour
 
 	void HandleObjectPlacement()
     {
-        if (Input.GetMouseButtonDown(0)) // Left click to place
+        if (Input.GetMouseButtonDown(0) && currentObjectIndex != -1) // Left click to place
         {
             PlaceObject();
         }
-        else if (Input.GetMouseButtonDown(1)) // Right click to remove
+        else if (Input.GetMouseButtonDown(1) && currentObjectIndex != -1) // Right click to remove
         {
             RemoveObject();
         }
@@ -83,5 +88,45 @@ public class ObjectPlacerScript : MonoBehaviour
     {
         Vector2 mouseWorldPos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         gridSystem.RemoveObject(mouseWorldPos);
+    }
+
+    public void setItem1()
+    {
+        if (currentObjectIndex == 0)
+        {
+            currentObjectIndex = -1; // Deselect if already selected
+        }
+        else
+            currentObjectIndex = 0;
+    }
+
+    public void setItem2()
+    {
+        if (currentObjectIndex == 1)
+        {
+            currentObjectIndex = -1; // Deselect if already selected
+        }
+        else
+            currentObjectIndex = 1;
+    }
+
+    public void setItem3()
+    {
+        if (currentObjectIndex == 2)
+        {
+            currentObjectIndex = -1; // Deselect if already selected
+        }
+        else
+            currentObjectIndex = 2;
+    }
+
+    public void setItem4()
+    {
+        if (currentObjectIndex == 3)
+        {
+            currentObjectIndex = -1; // Deselect if already selected
+        }
+        else
+            currentObjectIndex = 3;
     }
 }

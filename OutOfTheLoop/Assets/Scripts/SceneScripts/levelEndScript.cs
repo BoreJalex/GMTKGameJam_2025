@@ -8,6 +8,8 @@ public class levelEndScript : MonoBehaviour
 {
 
     public ParticleSystem levelWinParticles;
+    public string SceneName;
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -17,12 +19,24 @@ public class levelEndScript : MonoBehaviour
         {
             levelWinParticles.Play();
             loadNextLevel();
+            Debug.Log("level win");
 
         }
     }
 
     private void loadNextLevel()
     {
-        // Load the next level here
+        UnityEngine.SceneManagement.SceneManager.LoadScene(SceneName);
+    }
+
+    void Update()
+    {
+        //DON'T FORGET TO GET RID OF THIS LINE OF CODE WHEN RELEASING THE GAME
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#endif
+        }
     }
 }

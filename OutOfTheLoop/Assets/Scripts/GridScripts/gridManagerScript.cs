@@ -159,7 +159,15 @@ public class gridManagerScript : MonoBehaviour
     void HandleHoverPreview()
     {
         // Sets preview to be the active item being placed
-        placementPreview = objectPlacerScript.placeableObjects[objectPlacerScript.currentObjectIndex];
+        if (objectPlacerScript.currentObjectIndex >= 0)
+            placementPreview = objectPlacerScript.placeableObjects[objectPlacerScript.currentObjectIndex];
+        else
+        {
+            placementPreview = null;
+            Destroy(currentPreview);
+            currentPreview = null;
+            previewRenderer = null;
+        }
 
         if (placementPreview == null) return;
 
@@ -258,6 +266,7 @@ public class gridManagerScript : MonoBehaviour
             DisablePreviewComponents(child.gameObject);
         }
     }
+
 
 
 }

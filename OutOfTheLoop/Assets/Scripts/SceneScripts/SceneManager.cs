@@ -24,10 +24,6 @@ public class SceneManager : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            UnityEngine.SceneManagement.SceneManager.LoadScene(SceneName);
-        }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
