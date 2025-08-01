@@ -41,17 +41,17 @@ public class ObjectPlacerScript : MonoBehaviour
             }
         }
 
-        // Mouse wheel to cycle through objects
-        float scroll = Input.GetAxis("Mouse ScrollWheel");
-        if (scroll != 0)
-        {
-            currentObjectIndex += scroll > 0 ? 1 : -1;
-            currentObjectIndex = Mathf.Clamp(currentObjectIndex, 0, placeableObjects.Length - 1);
-            Debug.Log($"Selected object: {placeableObjects[currentObjectIndex].name}");
-        }
-    }
+		// Mouse wheel to cycle through objects
+		float scroll = Input.GetAxis("Mouse ScrollWheel");
+		if (scroll != 0)
+		{
+			currentObjectIndex += scroll > 0 ? -1 : 1; 
+			currentObjectIndex = Mathf.Clamp(currentObjectIndex, 0, placeableObjects.Length - 1);
+			Debug.Log($"Selected object: {placeableObjects[currentObjectIndex].name}");
+		}
+	}
 
-    void HandleObjectPlacement()
+	void HandleObjectPlacement()
     {
         if (Input.GetMouseButtonDown(0)) // Left click to place
         {

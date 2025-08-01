@@ -21,26 +21,21 @@ public class missileScript : MonoBehaviour
     {
         // Getting/Setting
         rb = GetComponent<Rigidbody2D>();
-        explosion = transform.GetChild(1).gameObject.GetComponent<ParticleSystem>();
+		explosion = transform.GetChild(1).gameObject.GetComponent<ParticleSystem>();
+
+        // Game Setup
         startPos = transform.position;
         startRot = transform.rotation;
-
     }
     private void FixedUpdate()
 	{
         if(Input.GetKey(KeyCode.Space))
         {
-            alive = true;
-
-        }
-        if (Input.GetKey(KeyCode.R))
+            GameStart();
+		}
+		if (Input.GetKey(KeyCode.R))
         {
-            //reset the spaceship position
-            transform.position = startPos;
-            transform.rotation = startRot;
-            alive = false;
-            rb.velocity = new Vector2(0,0);
-            rb.angularVelocity = 0f;
+            Restart();
         }
         // Movement
         if (gameObject != null && alive)
@@ -54,6 +49,21 @@ public class missileScript : MonoBehaviour
             explosion.Play();
             alive = false;
         }
+	}
+
+    public void Restart()
+    {
+		//reset the spaceship position
+		transform.position = startPos;
+		transform.rotation = startRot;
+		alive = false;
+		rb.velocity = new Vector2(0, 0);
+		rb.angularVelocity = 0f;
+	}
+
+    public void GameStart()
+    {
+		alive = true;
 	}
 
 }

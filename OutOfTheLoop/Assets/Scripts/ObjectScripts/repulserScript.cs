@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class repulserScript : MonoBehaviour
@@ -37,20 +35,16 @@ public class repulserScript : MonoBehaviour
 			missile.transform.position += awayDirection * generalStrength * strengthPercentage * Time.deltaTime;
 
 			// Rotating the player's missile, and like the speed, is based on the strengthPercentage
-			if (repulser.position.y > missile.position.y)
-			{
-				float missileRotation = missileRotationSpeed * strengthPercentage * Time.deltaTime;
-				missile.Rotate(0f, 0f, -missileRotation);
-			}
-			else // The attractor is below the missile
-			{
-				float missileRotation = missileRotationSpeed * strengthPercentage * Time.deltaTime;
-				missile.Rotate(0f, 0f, missileRotation);
-			}
+			Vector2 toRepulsor = (repulser.position - missile.position).normalized; // Vector pointing at the repulsor
+			float angleToTarget = Vector2.SignedAngle(missile.up, toRepulsor); // The angle difference of the missile and the repulsor
+			float rotationRate = missileRotationSpeed * strengthPercentage * Time.deltaTime; // Rate at which missile rotates
+			float clampedRotation = Mathf.Clamp(angleToTarget, -rotationRate, rotationRate); // Clamping said rotation
+
+			missile.Rotate(0f, 0f, -clampedRotation);
 		}
 	}
 
-	private void OnTriggerEnter2D(Collider2D collision)
+	private void OnTriggerStay2D(Collider2D collision)
 	{
         missileScript missileScript = collision.GetComponent<missileScript>();
 

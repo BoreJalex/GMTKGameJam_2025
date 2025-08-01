@@ -28,7 +28,7 @@ public class attractorScript : MonoBehaviour
 	{
 		if (inRange)
 		{
-			// Calculating the distance between the atractor and the player, and the strengthPercentage based on that
+			// Calculating the distance between the attractor and the player, and the strengthPercentage based on that
 			distance = Vector2.Distance(attractor.position, missile.position); // Obtaining distance from Missile to Satellite 
 			strengthPercentage = 1 - (distance / transform.localScale.x); // Obtaining the strength of the pull
 
@@ -36,20 +36,16 @@ public class attractorScript : MonoBehaviour
 			missile.transform.position = Vector2.MoveTowards(missile.position, attractor.position, generalStrength * strengthPercentage * Time.deltaTime);
 
 			// Rotating the player's missile, and like the speed, is based on the strengthPercentage
-			if(attractor.position.y > missile.position.y)
-			{
-				float missileRotation = missileRotationSpeed * strengthPercentage * Time.deltaTime;
-				missile.Rotate(0f, 0f, missileRotation);
-			}
-			else // The attractor is below the missile
-			{
-				float missileRotation = missileRotationSpeed * strengthPercentage * Time.deltaTime;
-				missile.Rotate(0f, 0f, -missileRotation);
-			}
+			Vector2 toAttractor = (attractor.position - missile.position).normalized; // Vector pointing at the attractor
+			float angleToTarget = Vector2.SignedAngle(missile.up, toAttractor); // The angle difference of the missile and the attractor
+			float rotationRate = missileRotationSpeed * strengthPercentage * Time.deltaTime; // Rate at which missile rotates
+			float clampedRotation = Mathf.Clamp(angleToTarget, -rotationRate, rotationRate); // Clamping said rotation
+
+			missile.Rotate(0f, 0f, clampedRotation); 
 		}
 	}
 
-	private void OnTriggerEnter2D(Collider2D collision)
+	private void OnTriggerStay2D(Collider2D collision)
 	{
         missileScript missileScript = collision.GetComponent<missileScript>();
 

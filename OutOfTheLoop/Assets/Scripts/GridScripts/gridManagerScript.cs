@@ -160,7 +160,6 @@ public class gridManagerScript : MonoBehaviour
     {
         // Sets preview to be the active item being placed
         placementPreview = objectPlacerScript.placeableObjects[objectPlacerScript.currentObjectIndex];
-        Debug.Log(objectPlacerScript.placeableObjects[objectPlacerScript.currentObjectIndex]);
 
         if (placementPreview == null) return;
 
