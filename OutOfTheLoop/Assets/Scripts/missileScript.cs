@@ -40,6 +40,7 @@ public class missileScript : MonoBehaviour
             transform.rotation = startRot;
             alive = false;
             rb.velocity = new Vector2(0,0);
+            rb.angularVelocity = 0f;
         }
         // Movement
         if (gameObject != null && alive)
