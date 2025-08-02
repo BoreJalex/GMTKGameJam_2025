@@ -157,6 +157,7 @@ MonoBehaviour:
   - {fileID: 4651474149839442915, guid: 8736497941c90c143919d8d6f91176dc, type: 3}
   currentObjectIndex: -1
   gridSystem: {fileID: 0}
+  missileScript: {fileID: 1938555631}
   mouseTracker: {fileID: 5669020277795948409, guid: 03c03c060143b8447b108e3843f27ec6, type: 3}
   attractorAmount: 3
   repulsorAmount: 3
@@ -3020,6 +3021,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69382031aa830154593cc4edf517a811, type: 3}
+--- !u!114 &1938555631 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4457965562921394245, guid: 69382031aa830154593cc4edf517a811, type: 3}
+  m_PrefabInstance: {fileID: 1855180037}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30d85ce5a3b89d149880b9a9599d2d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2025361237
 PrefabInstance:
   m_ObjectHideFlags: 0

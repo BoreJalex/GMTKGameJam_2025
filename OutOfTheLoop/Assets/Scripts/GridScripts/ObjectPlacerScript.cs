@@ -9,8 +9,9 @@ public class ObjectPlacerScript : MonoBehaviour
     [SerializeField] public GameObject[] placeableObjects;
     [SerializeField] public int currentObjectIndex = -1;
 
-    [Header("References")]
+    [Header("Scripts")]
     [SerializeField] private gridManagerScript gridSystem;
+    [SerializeField] private missileScript missileScript;
 
     [Header("Mouse Tracking")]
     [SerializeField] private GameObject mouseTracker;
@@ -39,8 +40,8 @@ public class ObjectPlacerScript : MonoBehaviour
 
     void Update()
     {
-        //HandleObjectSelection();
-        HandleObjectPlacement();
+        if (missileScript.atStart)
+            HandleObjectPlacement();
     }
 
     void HandleObjectSelection()

@@ -16,6 +16,8 @@ public class missileScript : MonoBehaviour
 
     // Bools
     public bool alive = false;
+    public bool atStart = true; 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -69,11 +71,16 @@ public class missileScript : MonoBehaviour
         rb.angularVelocity = 0f;
 
         transform.rotation = startRot;
+
+        atStart = true;
 	}
 
     public void GameStart()
     {
-		alive = true;
+        if (atStart)
+        {
+            alive = true;
+            atStart = false;
+        }
 	}
-
 }
