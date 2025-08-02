@@ -66,8 +66,9 @@ public class missileScript : MonoBehaviour
 		transform.rotation = startRot;
 		alive = false;
 		rb.velocity = new Vector2(0, 0);
-        transform.rotation = startRot;
         rb.angularVelocity = 0f;
+
+        transform.rotation = startRot;
 	}
 
     public void GameStart()
