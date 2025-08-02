@@ -11,6 +11,9 @@ public class ObjectPlacerScript : MonoBehaviour
     [Header("References")]
     [SerializeField] private gridManagerScript gridSystem;
 
+    [Header("Mouse Tracking")]
+    [SerializeField] private GameObject mouseTracker;
+
     private Camera mainCamera;
 
     void Start()
@@ -25,7 +28,7 @@ public class ObjectPlacerScript : MonoBehaviour
 
     void Update()
     {
-        HandleObjectSelection();
+        //HandleObjectSelection();
         HandleObjectPlacement();
     }
 
@@ -58,33 +61,53 @@ public class ObjectPlacerScript : MonoBehaviour
 
 	void HandleObjectPlacement()
     {
-        if (Input.GetMouseButtonDown(0) && currentObjectIndex != -1) // Left click to place
+        if (Input.GetMouseButtonDown(0)) // Left click to place attractor
         {
+            currentObjectIndex = 0;
             PlaceObject();
         }
-        else if (Input.GetMouseButtonDown(1) && currentObjectIndex != -1) // Right click to remove
+        else if (Input.GetMouseButtonDown(1)) // Right click to place repulser
         {
-            RemoveObject();
-        }
-    }
+            currentObjectIndex = 1;
+			PlaceObject();
+		}
+	}
 
-    void PlaceObject()
-    {
-        Vector2 mouseWorldPos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+	void PlaceObject()
+	{
+		StartCoroutine(PlaceObjectCoroutine());
+	}
 
-        if (currentObjectIndex < placeableObjects.Length)
-        {
-            GameObject newObject = Instantiate(placeableObjects[currentObjectIndex]);
+    // Made into a coroutine to allow for time to create and remove the collision check for hazards
+	IEnumerator PlaceObjectCoroutine()
+	{
+		Vector2 mouseWorldPos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
 
-            if (!gridSystem.PlaceObject(newObject, mouseWorldPos))
-            {
-                Destroy(newObject);
-                Debug.Log("Cannot place object here - cell is occupied!");
-            }
-        }
-    }
+		if (currentObjectIndex < placeableObjects.Length)
+		{
+			Vector2 nearest = gridSystem.GetNearestCellMiddle(mouseWorldPos);
+			GameObject colCheck = Instantiate(mouseTracker, nearest, Quaternion.identity);
+			MouseTrackScript mouseTrackScript = colCheck.GetComponent<MouseTrackScript>();
 
-    void RemoveObject()
+			yield return new WaitForFixedUpdate(); 
+			yield return new WaitForSeconds(0.05f); 
+
+			if (!mouseTrackScript.isColliding)
+			{
+				GameObject newObject = Instantiate(placeableObjects[currentObjectIndex]);
+
+				if (!gridSystem.PlaceObject(newObject, mouseWorldPos))
+				{
+					Destroy(newObject);
+				}
+			}
+
+			Destroy(colCheck);
+		}
+	}
+
+
+	void RemoveObject()
     {
         Vector2 mouseWorldPos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         gridSystem.RemoveObject(mouseWorldPos);

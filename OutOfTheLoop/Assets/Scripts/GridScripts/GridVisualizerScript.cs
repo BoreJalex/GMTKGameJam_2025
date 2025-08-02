@@ -90,7 +90,6 @@ public class GridVisualizerScript : MonoBehaviour
 
     void Update()
     {
-
         // Update cell indicators based on occupancy
         for (int x = 0; x < gridSystem.GridWidth; x++)
         {

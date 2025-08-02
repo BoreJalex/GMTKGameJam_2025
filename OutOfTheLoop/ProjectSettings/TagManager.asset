@@ -8,6 +8,7 @@ TagManager:
   - Repulser
   - LevelEnd
   - ObjectPlacer
+  - Hazard
   layers:
   - Default
   - TransparentFX

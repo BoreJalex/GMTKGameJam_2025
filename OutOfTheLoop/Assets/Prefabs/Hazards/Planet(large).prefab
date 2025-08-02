@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1600266295165739244}
   m_Layer: 7
   m_Name: attractorRange
-  m_TagString: Attractor
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -128,7 +128,7 @@ GameObject:
   - component: {fileID: 1600266295819094660}
   m_Layer: 0
   m_Name: attractorVisual
-  m_TagString: Attractor
+  m_TagString: Hazard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -209,10 +209,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1600266296948444464}
-  - component: {fileID: 1600266296948444471}
+  - component: {fileID: 8480445340626436465}
+  - component: {fileID: 7264907640319139953}
   m_Layer: 0
   m_Name: Planet(large)
-  m_TagString: Attractor
+  m_TagString: Hazard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -234,8 +235,8 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &1600266296948444471
-BoxCollider2D:
+--- !u!58 &8480445340626436465
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -248,15 +249,21 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_Radius: 2.75
+--- !u!58 &7264907640319139953
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1600266296948444470}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 2.75

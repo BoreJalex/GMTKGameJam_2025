@@ -4998,6 +4998,7 @@ GameObject:
   - component: {fileID: 5134724939801713578}
   - component: {fileID: 5134724939801713579}
   - component: {fileID: 5134724939801713580}
+  - component: {fileID: 6647152333397529120}
   m_Layer: 0
   m_Name: LevelEnd
   m_TagString: LevelEnd
@@ -5087,6 +5088,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelWinParticles: {fileID: 5134724939211390273}
+  SceneName: 
 --- !u!58 &5134724939801713580
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -5098,6 +5100,22 @@ CircleCollider2D:
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
+--- !u!58 &6647152333397529120
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5134724939801713576}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

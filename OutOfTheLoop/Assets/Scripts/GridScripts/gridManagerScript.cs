@@ -113,7 +113,46 @@ public class gridManagerScript : MonoBehaviour
         return null;
     }
 
-    public bool PlaceObject(GameObject obj, Vector2 worldPosition)
+    // The method for returning cell's middlepoints
+	public Vector2 GetNearestCellMiddle(Vector2 worldPosition)
+	{
+		int x, y;
+		if (GetGridPosition(worldPosition, out x, out y))
+		{
+			return grid[x, y].worldPosition;
+		}
+		return Vector2.zero;
+	}
+
+	// The method for placing all satellites
+	public bool PlaceObject(GameObject obj, Vector2 worldPosition)
+    {
+		GridCell cell = GetNearestCell(worldPosition);
+
+        if (cell != null && !cell.isOccupied)
+        {
+            obj.transform.position = cell.worldPosition;
+            cell.isOccupied = true;
+            cell.occupyingObject = obj;
+            return true;
+        }
+        else if (cell.isOccupied)
+        {
+            if (obj.CompareTag(cell.occupyingObject.tag))
+            {
+                RemoveObject(worldPosition);
+                return false;
+            }
+            else if (!obj.Equals(cell.occupyingObject))
+            {
+                RemoveObject(worldPosition);
+                return PlaceObject(obj, worldPosition);
+            }
+        }
+        return false; 
+	}
+
+    public bool PlaceObject2(GameObject obj, Vector2 worldPosition)
     {
         GridCell cell = GetNearestCell(worldPosition);
 
@@ -150,7 +189,7 @@ public class gridManagerScript : MonoBehaviour
 
     void Update()
     {
-        HandleHoverPreview();
+        //HandleHoverPreview();
     }
 
     // Add this variable to track the last preview prefab
