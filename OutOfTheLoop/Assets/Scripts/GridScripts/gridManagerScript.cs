@@ -125,47 +125,66 @@ public class gridManagerScript : MonoBehaviour
 	}
 
 	// The method for placing all satellites
-	public bool PlaceObject(GameObject obj, Vector2 worldPosition)
-    {
+	public void PlaceObject(Vector2 worldPosition)
+	{
 		GridCell cell = GetNearestCell(worldPosition);
 
-        if (cell != null && !cell.isOccupied)
-        {
-            obj.transform.position = cell.worldPosition;
-            cell.isOccupied = true;
-            cell.occupyingObject = obj;
-            return true;
-        }
-        else if (cell.isOccupied)
-        {
-            if (obj.CompareTag(cell.occupyingObject.tag))
+		if (objectPlacerScript.currentObjectIndex == 0 && objectPlacerScript.attractorAmount <= 0)
+		{
+            if (cell.isOccupied && cell.occupyingObject.CompareTag("Attractor"))
             {
+                objectPlacerScript.attractorAmount++;
                 RemoveObject(worldPosition);
-                return false;
             }
-            else if (!obj.Equals(cell.occupyingObject))
+            else
+                objectPlacerScript.attractorAmount++;
+			return;
+		}
+		else if (objectPlacerScript.currentObjectIndex == 1 && objectPlacerScript.repulsorAmount <= 0)
+		{
+            if (cell.isOccupied && cell.occupyingObject.CompareTag("Repulser"))
             {
-                RemoveObject(worldPosition);
-                return PlaceObject(obj, worldPosition);
+				objectPlacerScript.repulsorAmount++;
+				RemoveObject(worldPosition);
             }
-        }
-        return false; 
+            else
+                objectPlacerScript.repulsorAmount++;
+			return;
+		}
+
+		if (cell == null)
+			return;
+
+		// If cell not occupied, place new thing
+		if (!cell.isOccupied)
+		{
+			GameObject obj = Instantiate(objectPlacerScript.placeableObjects[objectPlacerScript.currentObjectIndex]);
+			obj.transform.position = cell.worldPosition;
+			cell.isOccupied = true;
+			cell.occupyingObject = obj;
+			return;
+		}
+
+		// If the cell is occupied
+		if (cell.isOccupied)
+		{
+			// Remove if same 
+			if (objectPlacerScript.placeableObjects[objectPlacerScript.currentObjectIndex].CompareTag(cell.occupyingObject.tag))
+			{
+				if (cell.occupyingObject.CompareTag("Attractor"))
+					objectPlacerScript.attractorAmount++;
+				else if (cell.occupyingObject.CompareTag("Repulser"))
+					objectPlacerScript.repulsorAmount++;
+				RemoveObject(worldPosition);
+				return;
+			}
+
+			// If opposite, replace
+			RemoveObject(worldPosition);
+			PlaceObject(worldPosition); 
+			return;
+		}
 	}
-
-    public bool PlaceObject2(GameObject obj, Vector2 worldPosition)
-    {
-        GridCell cell = GetNearestCell(worldPosition);
-
-        if (cell != null && !cell.isOccupied)
-        {
-            obj.transform.position = cell.worldPosition;
-            cell.isOccupied = true;
-            cell.occupyingObject = obj;
-            return true;
-        }
-
-        return false;
-    }
 
     public bool RemoveObject(Vector2 worldPosition)
     {
@@ -173,19 +192,23 @@ public class gridManagerScript : MonoBehaviour
 
         if (cell != null && cell.isOccupied)
         {
+            if (cell.occupyingObject.CompareTag("Attractor"))
+                objectPlacerScript.attractorAmount++;
+            else if (cell.occupyingObject.CompareTag("Repulser"))
+                objectPlacerScript.repulsorAmount++;
+
             if (cell.occupyingObject != null)
             {
                 Destroy(cell.occupyingObject);
             }
             cell.isOccupied = false;
             cell.occupyingObject = null;
-            return true;
+
+			return true;
         }
 
         return false;
     }
-
-
 
     void Update()
     {

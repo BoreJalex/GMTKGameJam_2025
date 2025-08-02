@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ObjectPlacerScript : MonoBehaviour
@@ -14,11 +15,21 @@ public class ObjectPlacerScript : MonoBehaviour
     [Header("Mouse Tracking")]
     [SerializeField] private GameObject mouseTracker;
 
-    private Camera mainCamera;
+    [Header("Variables")]
+    [SerializeField] public int attractorAmount;
+    [SerializeField] public int repulsorAmount;
+
+    [Header("Text")]
+    [SerializeField] private TextMeshProUGUI attractorText;
+	[SerializeField] private TextMeshProUGUI repulsorText;
+
+	private Camera mainCamera;
 
     void Start()
     {
-        mainCamera = Camera.main;
+        UpdateText();
+
+		mainCamera = Camera.main;
 
         if (gridSystem == null)
         {
@@ -94,15 +105,16 @@ public class ObjectPlacerScript : MonoBehaviour
 
 			if (!mouseTrackScript.isColliding)
 			{
-				GameObject newObject = Instantiate(placeableObjects[currentObjectIndex]);
+				gridSystem.PlaceObject(mouseWorldPos);
 
-				if (!gridSystem.PlaceObject(newObject, mouseWorldPos))
-				{
-					Destroy(newObject);
-				}
+				if (currentObjectIndex == 0)
+                    attractorAmount--;
+                else if (currentObjectIndex == 1)
+                    repulsorAmount--;
 			}
 
 			Destroy(colCheck);
+			UpdateText();
 		}
 	}
 
@@ -152,4 +164,10 @@ public class ObjectPlacerScript : MonoBehaviour
         else
             currentObjectIndex = 3;
     }
+
+    void UpdateText()
+    {
+		attractorText.text = attractorAmount.ToString();
+		repulsorText.text = repulsorAmount.ToString();
+	}
 }
