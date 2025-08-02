@@ -44,12 +44,20 @@ public class missileScript : MonoBehaviour
 
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
+        
         if (alive && !collision.gameObject.CompareTag("LevelEnd"))
         {
             explosion.Play();
             alive = false;
         }
 	}
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("ScreenBounds"))
+        {
+            Restart();
+        }
+    }
 
     public void Restart()
     {
@@ -58,7 +66,8 @@ public class missileScript : MonoBehaviour
 		transform.rotation = startRot;
 		alive = false;
 		rb.velocity = new Vector2(0, 0);
-		rb.angularVelocity = 0f;
+        transform.rotation = startRot;
+        rb.angularVelocity = 0f;
 	}
 
     public void GameStart()

@@ -29,14 +29,5 @@ public class levelEndScript : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene(SceneName);
     }
 
-    void Update()
-    {
-        //DON'T FORGET TO GET RID OF THIS LINE OF CODE WHEN RELEASING THE GAME
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-#if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-#endif
-        }
-    }
+   
 }

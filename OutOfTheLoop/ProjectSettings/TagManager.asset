@@ -9,6 +9,7 @@ TagManager:
   - LevelEnd
   - ObjectPlacer
   - Hazard
+  - ScreenBounds
   layers:
   - Default
   - TransparentFX
