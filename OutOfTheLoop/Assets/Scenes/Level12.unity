@@ -191,6 +191,7 @@ GameObject:
   - component: {fileID: 252906413}
   - component: {fileID: 252906411}
   - component: {fileID: 252906412}
+  - component: {fileID: 252906414}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -264,6 +265,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &252906414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 252906410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43201aaba3239034e8cf3ced3056bbd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &277704025
 GameObject:
   m_ObjectHideFlags: 0
@@ -386,7 +399,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5134724939801713579, guid: 5d4ad823d0e26264bb83edae0a7c31c7, type: 3}
       propertyPath: SceneName
-      value: Level12
+      value: Level13
       objectReference: {fileID: 0}
     - target: {fileID: 5134724939801713580, guid: 5d4ad823d0e26264bb83edae0a7c31c7, type: 3}
       propertyPath: m_IsTrigger
@@ -851,7 +864,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4457965562921394245, guid: 69382031aa830154593cc4edf517a811, type: 3}
   m_PrefabInstance: {fileID: 760605399}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1894869964}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 30d85ce5a3b89d149880b9a9599d2d76, type: 3}
@@ -1200,9 +1213,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1894869964}
+      - m_Target: {fileID: 760605400}
         m_TargetAssemblyTypeName: missileScript, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: GameStart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1602,7 +1615,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1170006056}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 252906414}
+        m_TargetAssemblyTypeName: LevelSelectScript, Assembly-CSharp
+        m_MethodName: LoadMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1170006056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2411,11 +2436,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1877433701}
   m_CullTransparentMesh: 1
---- !u!1 &1894869964 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4457965562921394264, guid: 69382031aa830154593cc4edf517a811, type: 3}
-  m_PrefabInstance: {fileID: 760605399}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1906577142
 GameObject:
   m_ObjectHideFlags: 0

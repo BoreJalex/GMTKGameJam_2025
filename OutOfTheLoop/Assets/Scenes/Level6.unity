@@ -1169,6 +1169,7 @@ GameObject:
   - component: {fileID: 961240309}
   - component: {fileID: 961240307}
   - component: {fileID: 961240308}
+  - component: {fileID: 961240310}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1242,6 +1243,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &961240310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961240306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43201aaba3239034e8cf3ced3056bbd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1058925663
 GameObject:
   m_ObjectHideFlags: 0
@@ -1515,7 +1528,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1223777834}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 961240310}
+        m_TargetAssemblyTypeName: LevelSelectScript, Assembly-CSharp
+        m_MethodName: LoadMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1223777834
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2337,7 +2362,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 348884081}
         m_TargetAssemblyTypeName: missileScript, Assembly-CSharp
         m_MethodName: GameStart
         m_Mode: 1
@@ -2815,7 +2840,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 348884081}
         m_TargetAssemblyTypeName: missileScript, Assembly-CSharp
         m_MethodName: Restart
         m_Mode: 1
