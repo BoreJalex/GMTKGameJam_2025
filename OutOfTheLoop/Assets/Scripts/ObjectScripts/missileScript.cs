@@ -1,6 +1,6 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
 
 public class missileScript : MonoBehaviour
@@ -8,21 +8,27 @@ public class missileScript : MonoBehaviour
     // Components
     private Rigidbody2D rb;
     private ParticleSystem explosion;
+    private SpriteRenderer spriteRenderer;
 
     // Variables
     [SerializeField] private float speed;
     private Vector2 startPos;
-    private quaternion startRot;
+    private Quaternion startRot;
 
     // Bools
     public bool alive = false;
-    public bool atStart = true; 
+    public bool atStart = true;
+
+    // Sounds
+    [SerializeField] private AudioSource explosionSound;
+    public AudioSource thrusterSound;
 
     // Start is called before the first frame update
     void Start()
     {
         // Getting/Setting
         rb = GetComponent<Rigidbody2D>();
+		spriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
 		explosion = transform.GetChild(1).gameObject.GetComponent<ParticleSystem>();
 
         // Game Setup
@@ -49,16 +55,36 @@ public class missileScript : MonoBehaviour
         
         if (alive && !collision.gameObject.CompareTag("LevelEnd"))
         {
-            explosion.Play();
-            alive = false;
+            // Particle
+			explosion.gameObject.SetActive(true);
+			explosion.Play();
+
+            // Sound
+            float randPitch = UnityEngine.Random.Range(.4f, .8f);
+            explosionSound.pitch = randPitch;
+            explosionSound.Play();
+			thrusterSound.Stop();
+
+			// Sprite
+			spriteRenderer.enabled = false;
+
+			// Movement
+			rb.velocity = Vector2.zero;
+
+			// Bool
+			alive = false;
         }
 	}
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("ScreenBounds"))
+        if (collision.gameObject.CompareTag("LevelEnd"))
         {
+			spriteRenderer.enabled = false;
+			thrusterSound.Stop();
+			rb.velocity = Vector2.zero;
+		}
+        if (collision.gameObject.CompareTag("ScreenBounds"))
             Restart();
-        }
     }
 
     public void Restart()
@@ -69,16 +95,24 @@ public class missileScript : MonoBehaviour
 		alive = false;
 		rb.velocity = new Vector2(0, 0);
         rb.angularVelocity = 0f;
-
         transform.rotation = startRot;
 
-        atStart = true;
+        // Sound/Visual
+        explosion.Stop();
+        explosion.gameObject.SetActive(false);
+		spriteRenderer.enabled = true;
+		thrusterSound.Stop();
+
+		// Bool
+		atStart = true;
 	}
 
     public void GameStart()
     {
         if (atStart)
         {
+            thrusterSound.Play();
+
             alive = true;
             atStart = false;
         }

@@ -9,6 +9,7 @@ public class levelEndScript : MonoBehaviour
 
     public ParticleSystem levelWinParticles;
     public string SceneName;
+    [SerializeField] private AudioSource cheering;
 
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -21,7 +22,8 @@ public class levelEndScript : MonoBehaviour
             loadNextLevel();
             Debug.Log("level win");
 
-        }
+            cheering.Play();
+		}
     }
 
     private void loadNextLevel()
