@@ -24,7 +24,7 @@ public class wormholeScript : MonoBehaviour
         // Disable the wormhole for a short duration to prevent immediate re-entry
         gameObject.GetComponent<CircleCollider2D>().enabled = false;
         otherPoint.GetComponent<CircleCollider2D>().enabled = false;
-        yield return new WaitForSeconds(.1f); // Adjust the cooldown duration as needed
+        yield return new WaitForSeconds(.3f); // Adjust the cooldown duration as needed
         gameObject.GetComponent<CircleCollider2D>().enabled = true;
         otherPoint.GetComponent<CircleCollider2D>().enabled = true;
         Debug.Log("Wormhole activated, cooldown complete.");

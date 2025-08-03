@@ -114,7 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d6106097a56cf047967a7eca0d45279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  generalStrength: 2
+  generalStrength: 6
   missileRotationSpeed: 100
 --- !u!1 &1787409933873619560
 GameObject:

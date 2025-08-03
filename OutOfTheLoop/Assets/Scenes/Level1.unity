@@ -2537,8 +2537,8 @@ MonoBehaviour:
   gridSystem: {fileID: 0}
   missileScript: {fileID: 1519007967}
   mouseTracker: {fileID: 5669020277795948409, guid: 03c03c060143b8447b108e3843f27ec6, type: 3}
-  attractorAmount: 3
-  repulsorAmount: 3
+  attractorAmount: 2
+  repulsorAmount: 2
   attractorText: {fileID: 44645664}
   repulsorText: {fileID: 1591022827}
 --- !u!4 &1829444053
