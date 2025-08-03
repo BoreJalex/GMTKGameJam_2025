@@ -5,7 +5,7 @@ using System;
 
 
 
-public class SceneManager : MonoBehaviour
+public class NewSceneManager : MonoBehaviour
 {
     public string SceneName;
     public Button startButton;

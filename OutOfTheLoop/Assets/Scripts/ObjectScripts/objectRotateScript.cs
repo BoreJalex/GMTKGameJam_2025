@@ -6,17 +6,6 @@ public class objectRotateScript : MonoBehaviour
 {
 public float rotationSpeed = 50f; // Speed of rotation in degrees per second
 
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void FixedUpdate()
     {
         // Rotate the object around its own axis
