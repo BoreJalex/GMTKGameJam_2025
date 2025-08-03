@@ -68,8 +68,11 @@ public class missileScript : MonoBehaviour
 			// Sprite
 			spriteRenderer.enabled = false;
 
-            // Bool
-            alive = false;
+			// Movement
+			rb.velocity = Vector2.zero;
+
+			// Bool
+			alive = false;
         }
 	}
     private void OnTriggerEnter2D(Collider2D collision)
