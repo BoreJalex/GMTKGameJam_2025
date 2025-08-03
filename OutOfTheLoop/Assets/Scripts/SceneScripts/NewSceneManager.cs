@@ -21,16 +21,8 @@ public class NewSceneManager : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene(SceneName);
     }
 
-    void Update()
+    public void LoadLevelSelect()
     {
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Application.Quit();
-
-#if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-#endif
-        }
+        UnityEngine.SceneManagement.SceneManager.LoadScene("LevelSelect");
     }
 }
