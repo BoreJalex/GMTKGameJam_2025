@@ -81,7 +81,8 @@ public class ObjectPlacerScript : MonoBehaviour
         else if (Input.GetMouseButtonDown(1)) // Right click to place repulser
         {
             currentObjectIndex = 1;
-			PlaceObject();
+
+            PlaceObject();
 		}
 	}
 
@@ -122,6 +123,12 @@ public class ObjectPlacerScript : MonoBehaviour
 
 	void RemoveObject()
     {
+        var particleSystem = placeableObjects[currentObjectIndex].GetComponentInChildren<ParticleSystem>(true); // true includes inactive objects
+        if (particleSystem != null)
+        {
+            particleSystem.gameObject.SetActive(true); // Activate if needed
+            particleSystem.Play();
+        }
         Vector2 mouseWorldPos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         gridSystem.RemoveObject(mouseWorldPos);
     }

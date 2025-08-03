@@ -9,6 +9,7 @@ public class missileScript : MonoBehaviour
     private Rigidbody2D rb;
     private ParticleSystem explosion;
     private SpriteRenderer spriteRenderer;
+    //private ParticleSystem thruster;
 
     // Variables
     [SerializeField] private float speed;
@@ -28,7 +29,7 @@ public class missileScript : MonoBehaviour
     {
         // Getting/Setting
         rb = GetComponent<Rigidbody2D>();
-        spriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        spriteRenderer = transform.GetChild(2).GetComponent<SpriteRenderer>();
         explosion = transform.GetChild(1).gameObject.GetComponent<ParticleSystem>();
 
         // Game Setup

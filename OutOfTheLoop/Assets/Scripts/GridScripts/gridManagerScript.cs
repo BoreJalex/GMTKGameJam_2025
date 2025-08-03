@@ -134,6 +134,7 @@ public class gridManagerScript : MonoBehaviour
             if (cell.isOccupied && cell.occupyingObject.CompareTag("Attractor"))
             {
                 objectPlacerScript.attractorAmount++;
+                objectPlacerScript.placeableObjects[objectPlacerScript.currentObjectIndex].GetComponentInChildren<ParticleSystem>().Play();
                 RemoveObject(worldPosition);
             }
             else
@@ -145,7 +146,9 @@ public class gridManagerScript : MonoBehaviour
             if (cell.isOccupied && cell.occupyingObject.CompareTag("Repulser"))
             {
 				objectPlacerScript.repulsorAmount++;
-				RemoveObject(worldPosition);
+                objectPlacerScript.placeableObjects[objectPlacerScript.currentObjectIndex].GetComponentInChildren<ParticleSystem>().Play();
+
+                RemoveObject(worldPosition);
             }
             else
                 objectPlacerScript.repulsorAmount++;
@@ -188,6 +191,7 @@ public class gridManagerScript : MonoBehaviour
 
     public bool RemoveObject(Vector2 worldPosition)
     {
+        
         GridCell cell = GetNearestCell(worldPosition);
 
         if (cell != null && cell.isOccupied)

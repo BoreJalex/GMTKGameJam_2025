@@ -1999,6 +1999,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1612517775766247278, guid: 69382031aa830154593cc4edf517a811, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4457965562921394264, guid: 69382031aa830154593cc4edf517a811, type: 3}
       propertyPath: m_Name
       value: Missile
