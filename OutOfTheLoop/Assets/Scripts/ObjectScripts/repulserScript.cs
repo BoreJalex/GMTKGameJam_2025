@@ -54,6 +54,10 @@ public class repulserScript : MonoBehaviour
 			if (missile != collision.transform)
 				missile = collision.transform;
 
+			missileScript misScript = collision.gameObject.GetComponent<missileScript>();
+			AudioSource playerAudio = misScript.thrusterSound;
+			playerAudio.pitch = .55f;
+
 			inRange = true;
 		}
 	}
@@ -63,6 +67,10 @@ public class repulserScript : MonoBehaviour
 		// If player exits, they're not in range
 		if (collision.gameObject.CompareTag("Player"))
 		{
+			missileScript misScript = collision.gameObject.GetComponent<missileScript>();
+			AudioSource playerAudio = misScript.thrusterSound;
+			playerAudio.pitch = .5f;
+
 			inRange = false;
 		}
 	}

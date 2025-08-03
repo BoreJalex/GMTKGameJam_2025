@@ -2569,8 +2569,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4457965561457314660, guid: 69382031aa830154593cc4edf517a811, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.4
+      value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4457965561726882023, guid: 69382031aa830154593cc4edf517a811, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4457965562921394245, guid: 69382031aa830154593cc4edf517a811, type: 3}
+      propertyPath: explosionSound
+      value: 
+      objectReference: {fileID: 1855180038}
     - target: {fileID: 4457965562921394264, guid: 69382031aa830154593cc4edf517a811, type: 3}
       propertyPath: m_Name
       value: Missile
@@ -2621,6 +2629,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69382031aa830154593cc4edf517a811, type: 3}
+--- !u!82 &1855180038 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 8324230893412206475, guid: 69382031aa830154593cc4edf517a811, type: 3}
+  m_PrefabInstance: {fileID: 1855180037}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1938555631 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4457965562921394245, guid: 69382031aa830154593cc4edf517a811, type: 3}
