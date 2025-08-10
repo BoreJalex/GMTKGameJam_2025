@@ -82,9 +82,12 @@ public class missileScript : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("LevelEnd"))
         {
-            spriteRenderer.enabled = false;
-            thrusterSound.Stop();
-            rb.velocity = Vector2.zero;
+            if (alive)
+            {
+                spriteRenderer.enabled = false;
+                thrusterSound.Stop();
+                rb.velocity = Vector2.zero;
+            }
         }
         if (collision.gameObject.CompareTag("ScreenBounds"))
             Restart();

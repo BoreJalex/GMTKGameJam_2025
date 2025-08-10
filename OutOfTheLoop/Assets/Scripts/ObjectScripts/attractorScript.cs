@@ -15,6 +15,9 @@ public class attractorScript : MonoBehaviour
 	[SerializeField] private float generalStrength; // The general strength of this attractor, which is multiplied by the strengthPercentage 
 	[SerializeField] private float missileRotationSpeed; // The general speed at which the missile rotates
 
+	// Scripts
+	missileScript mScript;
+
 	// Bools
 	private bool inRange = false; // Whether or not the player is in range
 
@@ -28,20 +31,25 @@ public class attractorScript : MonoBehaviour
 	{
 		if (inRange)
 		{
-			// Calculating the distance between the attractor and the player, and the strengthPercentage based on that
-			distance = Vector2.Distance(attractor.position, missile.position); // Obtaining distance from Missile to Satellite 
-			strengthPercentage = 1 - (distance / transform.localScale.x); // Obtaining the strength of the pull
+			mScript = missile.GetComponent<missileScript>();
 
-			// Moving the player towards the attractor
-			missile.transform.position = Vector2.MoveTowards(missile.position, attractor.position, generalStrength * strengthPercentage * Time.deltaTime);
+			if (mScript.alive)
+			{
+				// Calculating the distance between the attractor and the player, and the strengthPercentage based on that
+				distance = Vector2.Distance(attractor.position, missile.position); // Obtaining distance from Missile to Satellite 
+				strengthPercentage = 1 - (distance / transform.localScale.x); // Obtaining the strength of the pull
 
-			// Rotating the player's missile, and like the speed, is based on the strengthPercentage
-			Vector2 toAttractor = (attractor.position - missile.position).normalized; // Vector pointing at the attractor
-			float angleToTarget = Vector2.SignedAngle(missile.up, toAttractor); // The angle difference of the missile and the attractor
-			float rotationRate = missileRotationSpeed * strengthPercentage * Time.deltaTime; // Rate at which missile rotates
-			float clampedRotation = Mathf.Clamp(angleToTarget, -rotationRate, rotationRate); // Clamping said rotation
+				// Moving the player towards the attractor
+				missile.transform.position = Vector2.MoveTowards(missile.position, attractor.position, generalStrength * strengthPercentage * Time.deltaTime);
 
-			missile.Rotate(0f, 0f, clampedRotation); 
+				// Rotating the player's missile, and like the speed, is based on the strengthPercentage
+				Vector2 toAttractor = (attractor.position - missile.position).normalized; // Vector pointing at the attractor
+				float angleToTarget = Vector2.SignedAngle(missile.up, toAttractor); // The angle difference of the missile and the attractor
+				float rotationRate = missileRotationSpeed * strengthPercentage * Time.deltaTime; // Rate at which missile rotates
+				float clampedRotation = Mathf.Clamp(angleToTarget, -rotationRate, rotationRate); // Clamping said rotation
+
+				missile.Rotate(0f, 0f, clampedRotation);
+			}
 		}
 	}
 
