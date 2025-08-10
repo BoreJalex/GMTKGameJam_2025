@@ -9,6 +9,7 @@ public class missileScript : MonoBehaviour
     private Rigidbody2D rb;
     private ParticleSystem explosion;
     private SpriteRenderer spriteRenderer;
+    private Collider2D col;
     //private ParticleSystem thruster;
 
     // Variables
@@ -31,6 +32,7 @@ public class missileScript : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = transform.GetChild(2).GetComponent<SpriteRenderer>();
         explosion = transform.GetChild(1).gameObject.GetComponent<ParticleSystem>();
+        col = GetComponent<Collider2D>();
 
         // Game Setup
         startPos = transform.position;
@@ -74,7 +76,8 @@ public class missileScript : MonoBehaviour
 
             // Bool
             alive = false;
-            StartCoroutine(shipDeathRespawnTime(1f));
+			col.enabled = false;
+			StartCoroutine(shipDeathRespawnTime(1f));
 
         }
     }
@@ -96,12 +99,13 @@ public class missileScript : MonoBehaviour
     public void Restart()
     {
         //reset the spaceship position
-        
         alive = false;
-        rb.velocity = new Vector2(0, 0);
+		col.enabled = false;
+		rb.velocity = new Vector2(0, 0);
         rb.angularVelocity = 0f;
         transform.position = startPos;
         transform.rotation = startRot;
+
         // Sound/Visual
         explosion.Stop();
         explosion.gameObject.SetActive(false);
@@ -119,7 +123,8 @@ public class missileScript : MonoBehaviour
             thrusterSound.Play();
 
             alive = true;
-            atStart = false;
+			col.enabled = true;
+			atStart = false;
         }
     }
 
